@@ -33,6 +33,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { useToast } from "@/components/ui/use-toast";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 const voiceCategory = ["alloy", "shimmer", "nova", "echo", "fable", "onyx"];
 
@@ -42,6 +43,7 @@ const formSchema = z.object({
 });
 
 const CreatePodcast = () => {
+	const router = useRouter();
 	const [audioStorageId, setAudioStorageId] = useState<Id<"_storage"> | null>(
 		null
 	);
@@ -95,6 +97,9 @@ const CreatePodcast = () => {
 				audioStorageId: audioStorageId!,
 				imageStorageId: imageStorageId!,
 			});
+			toast({ title: "Podcast created" });
+			setIsSubmitting(false);
+			router.push("/");
 		} catch (error) {
 			console.log(error);
 		}

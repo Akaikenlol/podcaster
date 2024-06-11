@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 
 export const getUrl = mutation({
 	args: {
@@ -40,8 +40,20 @@ export const createPodcast = mutation({
 			throw new Error("User not found");
 		}
 
-		// const podcast = await ctx.db.insert('podcasts'. {
+		const podcast = await ctx.db.insert("podcasts", {
+			...args,
+			user: user[0]._id,
+			author: user[0].name,
+			authorId: user[0].clerkId,
+			authorImageUrl: user[0].imageUrl,
+		});
+	},
+});
 
-		// });
+export const getTrendingPodcast = query({
+	handler: async (ctx) => {
+		const podcast = await ctx.db.query("podcasts").collect();
+
+		return podcast;
 	},
 });
