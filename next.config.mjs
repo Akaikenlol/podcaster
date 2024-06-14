@@ -10,6 +10,10 @@ const nextConfig = {
 				protocol: "https",
 				hostname: "gregarious-swordfish-401.convex.cloud",
 			},
+			{
+				protocol: "https",
+				hostname: "img.clerk.com",
+			},
 		],
 	},
 };
